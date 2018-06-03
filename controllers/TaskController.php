@@ -11,9 +11,4 @@ class TaskController extends Controller
   {
     return $this->render('index', array("title" => "Урок 1", "description" => "Контроллер Task"));
   }
-
-  public function actionLogin()
-  {
-    return $this->render('login');
-  }
 }
