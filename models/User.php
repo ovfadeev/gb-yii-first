@@ -19,7 +19,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        if ($user = static::findTableUser(['id' => $id]))
+        if ($user = static::findUserRepo(['id' => $id]))
         {
             return new static($user->getAttributes());
         }
@@ -48,7 +48,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        if ($user = static::findTableUser(['username' => $username]))
+        if ($user = static::findUserRepo(['username' => $username]))
         {
             return new static($user->getAttributes());
         }
@@ -90,7 +90,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
         return $this->password === md5($password);
     }
 
-    private static function findTableUser($condition)
+    private static function findUserRepo($condition)
     {
         return \app\models\repository\Users::find()->where($condition)->one();
     }
