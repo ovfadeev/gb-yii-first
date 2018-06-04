@@ -9,6 +9,8 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Create task';
 $this->params['breadcrumbs'][] = $this->title;
+
+$model->autor_id = Yii::$app->user->identity->id;
 ?>
 <div class="create-task">
 	<h1><?= Html::encode($this->title) ?></h1>
@@ -30,7 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= $form->field($model, 'description')->textarea(['rows' => '6']) ?>
 
-	<?= $form->field($model, 'autor_id')->textInput() ?>
+	<?= $form->field($model, 'autor_id', [
+		'template' => '{input}'
+	])->textInput(['type' => 'hidden']) ?>
 
 	<?= $form->field($model, 'performer_id')->textInput() ?>
 
