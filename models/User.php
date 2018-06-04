@@ -22,9 +22,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public static function findIdentity($id)
     {
         $session = Yii::$app->session;
-        $sesUser = $session->get('user');
+        $sesUser = ($session->has('user')) ? $session->get('user') : false;
 
-        if ($sesUser->id === $id)
+        if ($sesUser && $sesUser->id === $id)
         {
             return $sesUser;
         }
