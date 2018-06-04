@@ -28,9 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= $form->field($model, 'deadline')->textInput(['type' => 'date']) ?>
 
-	<?= $form->field($model, 'description', [
-		'template' => " {label}\n<div class=\"col-lg-6\">{input}</div>\n<div class=\"col-lg-4\">{error}</div>",
-	])->textarea(['rows' => '6']) ?>
+	<?= $form->field($model, 'description')->textarea(['rows' => '6']) ?>
 
 	<?= $form->field($model, 'autor_id')->textInput() ?>
 
@@ -38,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<div class="form-group">
 		<div class="col-lg-offset-2 col-lg-10">
-			<?= Html::submitButton('Create', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+			<?= Html::submitButton('Create', ['class' => 'btn btn-primary', 'name' => 'create-button']) ?>
 		</div>
 	</div>
 
