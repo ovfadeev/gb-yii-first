@@ -104,8 +104,8 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
         return $this->password === md5($password);
     }
 
-    private static function findUserRepo($condition)
+    private static function findUserRepo($params)
     {
-        return \app\models\repository\Users::find()->where($condition)->one();
+        return \app\models\repository\Users::find()->where($params)->one();
     }
 }
