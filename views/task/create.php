@@ -26,15 +26,15 @@ $model->autor_id = Yii::$app->user->identity->id;
 		]);
 	?>
 
+	<?= $form->field($model, 'autor_id', [
+		'template' => '{input}'
+	])->textInput(['type' => 'hidden']) ?>
+
 	<?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
 
 	<?= $form->field($model, 'deadline')->textInput(['type' => 'date']) ?>
 
 	<?= $form->field($model, 'description')->textarea(['rows' => '6']) ?>
-
-	<?= $form->field($model, 'autor_id', [
-		'template' => '{input}'
-	])->textInput(['type' => 'hidden']) ?>
 
 	<?= $form->field($model, 'performer_id')->textInput() ?>
 
