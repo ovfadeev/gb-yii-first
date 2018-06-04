@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
     public $id;
@@ -19,10 +21,22 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        if ($user = static::findUserRepo(['id' => $id]))
+        $session = Yii::$app->session;
+        $sesUser = $session->get('user');
+
+        if ($sesUser->id === $id)
         {
-            return new static($user->getAttributes());
+            return $sesUser;
         }
+        else if ($dbUser = static::findUserRepo(['id' => $id]))
+        {
+            $user = $dbUser->getAttributes();
+
+            $session->set('user', $user);
+
+            return new static($user);
+        }
+
         return null;
     }
 
