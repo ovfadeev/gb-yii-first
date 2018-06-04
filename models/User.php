@@ -32,6 +32,11 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
         {
             $user = $dbUser->getAttributes();
 
+            if (!$session->isActive)
+            {
+                $session->open();
+            }
+
             $session->set('user', $user);
 
             return new static($user);
