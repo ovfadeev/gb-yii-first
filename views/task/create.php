@@ -5,14 +5,12 @@
 /* @var $form yii\bootstrap\ActiveForm */
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Create task';
 $this->params['breadcrumbs'][] = $this->title;
 
-echo '<pre>';
-print_r($users);
-echo '</pre>';
 ?>
 <div class="create-task">
   <h1><?= Html::encode($this->title) ?></h1>
@@ -38,7 +36,7 @@ echo '</pre>';
 
   <?= $form->field($model, 'description')->textarea(['rows' => '6']) ?>
 
-  <?= $form->field($model, 'performer_id')->textInput() ?>
+  <?= $form->field($model, 'performer_id')->dropDownList(ArrayHelper::map($users, 'id', 'first_name')) ?>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
