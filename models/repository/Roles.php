@@ -14,41 +14,41 @@ use Yii;
  */
 class Roles extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'roles';
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public static function tableName()
+  {
+    return 'roles';
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['title'], 'required'],
-            [['title'], 'string', 'max' => 50],
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function rules()
+  {
+    return [
+        [['title'], 'required'],
+        [['title'], 'string', 'max' => 50],
+    ];
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'title' => 'Title',
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function attributeLabels()
+  {
+    return [
+        'id' => 'ID',
+        'title' => 'Title',
+    ];
+  }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(Users::className(), ['role_id' => 'id']);
-    }
+  /**
+   * @return \yii\db\ActiveQuery
+   */
+  public function getUsers()
+  {
+    return $this->hasMany(Users::className(), ['role_id' => 'id']);
+  }
 }

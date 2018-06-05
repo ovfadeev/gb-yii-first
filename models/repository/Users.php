@@ -16,40 +16,40 @@ use Yii;
  */
 class Users extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'users';
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public static function tableName()
+  {
+    return 'users';
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['login', 'password', 'email', 'first_name', 'last_name'], 'required'],
-            [['login', 'email', 'first_name', 'last_name'], 'string', 'max' => 50],
-            [['password'], 'string', 'max' => 100],
-            [['login'], 'unique'],
-            [['email'], 'unique'],
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function rules()
+  {
+    return [
+        [['login', 'password', 'email', 'first_name', 'last_name'], 'required'],
+        [['login', 'email', 'first_name', 'last_name'], 'string', 'max' => 50],
+        [['password'], 'string', 'max' => 100],
+        [['login'], 'unique'],
+        [['email'], 'unique'],
+    ];
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'login' => 'Login',
-            'password' => 'Password',
-            'email' => 'Email',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function attributeLabels()
+  {
+    return [
+        'id' => 'ID',
+        'login' => 'Login',
+        'password' => 'Password',
+        'email' => 'Email',
+        'first_name' => 'First Name',
+        'last_name' => 'Last Name',
+    ];
+  }
 }

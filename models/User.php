@@ -6,111 +6,106 @@ use Yii;
 
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $email;
-    public $first_name;
-    public $last_name;
-    public $role_id;
-    public $authKey;
-    public $accessToken;
+  public $id;
+  public $username;
+  public $password;
+  public $email;
+  public $first_name;
+  public $last_name;
+  public $role_id;
+  public $authKey;
+  public $accessToken;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentity($id)
-    {
-        $session = Yii::$app->session;
-        $sesUser = ($session->has('user')) ? $session->get('user') : false;
+  /**
+   * {@inheritdoc}
+   */
+  public static function findIdentity($id)
+  {
+    $session = Yii::$app->session;
+    $sesUser = ($session->has('user')) ? $session->get('user') : false;
 
-        if ($sesUser && $sesUser->id === $id)
-        {
-            return $sesUser;
-        }
-        else if ($dbUser = static::findUserRepo(['id' => $id]))
-        {
-            $user = $dbUser->getAttributes();
+    if ($sesUser && $sesUser->id === $id) {
+      return $sesUser;
+    } else if ($dbUser = static::findUserRepo(['id' => $id])) {
+      $user = $dbUser->getAttributes();
 
-            if (!$session->isActive)
-            {
-                $session->open();
-            }
+      if (!$session->isActive) {
+        $session->open();
+      }
 
-            $session->set('user', $user);
+      $session->set('user', $user);
 
-            return new static($user);
-        }
-
-        return null;
+      return new static($user);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
+    return null;
+  }
 
-        return null;
+  /**
+   * {@inheritdoc}
+   */
+  public static function findIdentityByAccessToken($token, $type = null)
+  {
+    foreach (self::$users as $user) {
+      if ($user['accessToken'] === $token) {
+        return new static($user);
+      }
     }
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        if ($user = static::findUserRepo(['username' => $username]))
-        {
-            return new static($user->getAttributes());
-        }
-        return null;
-    }
+    return null;
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
-    {
-        return $this->id;
+  /**
+   * Finds user by username
+   *
+   * @param string $username
+   * @return static|null
+   */
+  public static function findByUsername($username)
+  {
+    if ($user = static::findUserRepo(['username' => $username])) {
+      return new static($user->getAttributes());
     }
+    return null;
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function getAuthKey()
+  {
+    return $this->authKey;
+  }
 
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === md5($password);
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function validateAuthKey($authKey)
+  {
+    return $this->authKey === $authKey;
+  }
 
-    private static function findUserRepo($params)
-    {
-        return \app\models\repository\Users::find()->where($params)->one();
-    }
+  /**
+   * Validates password
+   *
+   * @param string $password password to validate
+   * @return bool if password provided is valid for current user
+   */
+  public function validatePassword($password)
+  {
+    return $this->password === md5($password);
+  }
+
+  private static function findUserRepo($params)
+  {
+    return \app\models\repository\Users::find()->where($params)->one();
+  }
 }
