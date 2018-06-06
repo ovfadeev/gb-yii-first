@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -10,24 +11,33 @@ use yii\widgets\ActiveForm;
 
 <div class="tasks-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+  <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+  <?= $form->field($model, 'autor_id', [
+      'template' => '{input}'
+  ])->textInput(['type' => 'hidden']) ?>
 
-    <?= $form->field($model, 'deadline')->textInput(['type' => 'date']) ?>
+  <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+  <?= $form->field($model, 'deadline')->textInput(['type' => 'datetime']) ?>
 
-    <?= $form->field($model, 'autor_id')->textInput() ?>
+  <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'performer_id')->textInput() ?>
+  <?= $form->field($model, 'performer_id')->dropDownList(ArrayHelper::map($users, 'id', 'first_name')) ?>
+  <?
+  if ($status) {
+    echo $form->field($model, 'status_id')->dropDownList(ArrayHelper::map($status, 'id', 'title'));
+  } else {
+    echo $form->field($model, 'status_id', [
+        'template' => '{input}'
+    ])->textInput(['type' => 'hidden']);
+  }
+  ?>
 
-    <?= $form->field($model, 'status_id')->textInput() ?>
+  <div class="form-group">
+    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+  </div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+  <?php ActiveForm::end(); ?>
 
 </div>

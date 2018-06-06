@@ -51,4 +51,9 @@ class StatusTasks extends \yii\db\ActiveRecord
   {
     return $this->hasMany(Tasks::className(), ['status_id' => 'id']);
   }
+
+  public static function getDefaultStatus()
+  {
+    return static::find(['order'=>'id'])->one();
+  }
 }
