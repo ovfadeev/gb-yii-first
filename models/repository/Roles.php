@@ -2,8 +2,6 @@
 
 namespace app\models\repository;
 
-use Yii;
-
 /**
  * This is the model class for table "roles".
  *
@@ -49,6 +47,6 @@ class Roles extends \yii\db\ActiveRecord
    */
   public function getUsers()
   {
-    return $this->hasMany(Users::className(), ['role_id' => 'id']);
+    return $this->hasMany(Users::className, ['role_id' => 'id']);
   }
 }
