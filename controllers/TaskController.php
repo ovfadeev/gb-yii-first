@@ -22,15 +22,14 @@ class TaskController extends Controller
   {
     $model = new Tasks();
 
-    if ($model->load(\Yii::$app->request->post()) && $model->save())
-    {
+    if ($model->load(\Yii::$app->request->post()) && $model->save()) {
       $this->redirect(['task/index']);
     }
 
     $model->autor_id = Yii::$app->user->identity->id;
 
     $roleAdmin = Role::getIdAdminRole();
-    $users = Users::find()->where('role_id != :role_id',[':role_id' => $roleAdmin->id])->all();
+    $users = Users::find()->where('role_id != :role_id', [':role_id' => $roleAdmin->id])->all();
 
     return $this->render('create', ['model' => $model, 'users' => $users]);
   }
