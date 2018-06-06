@@ -16,7 +16,7 @@ class m180605_183822_insert_users_table extends Migration
   {
     $this->insert($this::TABLE_NAME_USERS, [
         'username' => 'manager',
-        'password' => md5('manager'),
+        'password' => Yii::$app->getSecurity()->generatePasswordHash('manager'),
         'email' => 'manager@site.ru',
         'first_name' => 'manager',
         'last_name' => 'manager',
@@ -24,7 +24,7 @@ class m180605_183822_insert_users_table extends Migration
     ]);
     $this->insert($this::TABLE_NAME_USERS, [
         'username' => 'dev1',
-        'password' => md5('dev1'),
+        'password' => Yii::$app->getSecurity()->generatePasswordHash('dev1'),
         'email' => 'dev1@site.ru',
         'first_name' => 'dev1',
         'last_name' => 'dev1',
@@ -32,7 +32,7 @@ class m180605_183822_insert_users_table extends Migration
     ]);
     $this->insert($this::TABLE_NAME_USERS, [
         'username' => 'dev2',
-        'password' => md5('dev2'),
+        'password' => Yii::$app->getSecurity()->generatePasswordHash('dev2'),
         'email' => 'dev2@site.ru',
         'first_name' => 'dev2',
         'last_name' => 'dev2',

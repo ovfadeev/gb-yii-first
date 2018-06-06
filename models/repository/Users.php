@@ -52,4 +52,24 @@ class Users extends \yii\db\ActiveRecord
         'last_name' => 'Last Name',
     ];
   }
+
+  public function beforeSave($insert)
+  {
+    if (parent::beforeSave($insert)) {
+      if ($this->isNewRecord) {
+        $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * @return \yii\db\ActiveQuery
+   */
+  public function getRole()
+  {
+    return $this->hasOne(Roles::className(), ['id' => 'role_id']);
+  }
 }
