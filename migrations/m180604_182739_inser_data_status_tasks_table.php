@@ -7,30 +7,31 @@ use yii\db\Migration;
  */
 class m180604_182739_inser_data_status_tasks_table extends Migration
 {
-    const TABLE_NAME_STATUS_TASKS = 'status_tasks';
-    /**
-     * {@inheritdoc}
-     */
-    public function safeUp()
-    {
-        $this->insert($this::TABLE_NAME_STATUS_TASKS, [
-            'title' => 'New'
-        ]);
+  const TABLE_NAME_STATUS_TASKS = 'status_tasks';
 
-        $this->insert($this::TABLE_NAME_STATUS_TASKS, [
-            'title' => 'In work'
-        ]);
+  /**
+   * {@inheritdoc}
+   */
+  public function safeUp()
+  {
+    $this->insert($this::TABLE_NAME_STATUS_TASKS, [
+        'title' => 'New'
+    ]);
 
-        $this->insert($this::TABLE_NAME_STATUS_TASKS, [
-            'title' => 'Close'
-        ]);
-    }
+    $this->insert($this::TABLE_NAME_STATUS_TASKS, [
+        'title' => 'In work'
+    ]);
 
-    /**
-     * {@inheritdoc}
-     */
-    public function safeDown()
-    {
-        return false;
-    }
+    $this->insert($this::TABLE_NAME_STATUS_TASKS, [
+        'title' => 'Close'
+    ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function safeDown()
+  {
+    return false;
+  }
 }

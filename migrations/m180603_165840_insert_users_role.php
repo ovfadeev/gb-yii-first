@@ -32,11 +32,11 @@ class m180603_165840_insert_users_role extends Migration
     $this->insert($this::TABLE_NAME_USERS, [
         'username' => 'admin',
         'password' => Yii::$app->getSecurity()->generatePasswordHash('admin'),
-    'email' => 'webmaster@site.ru',
-            'first_name' => 'Admin',
-            'last_name' => 'Admin',
-            'role_id' => 1
-        ]);
+        'email' => 'webmaster@site.ru',
+        'first_name' => 'Admin',
+        'last_name' => 'Admin',
+        'role_id' => 1
+    ]);
     }
 
   /**
