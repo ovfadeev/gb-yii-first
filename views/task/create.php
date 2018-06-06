@@ -11,10 +11,6 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Create task';
 $this->params['breadcrumbs'][] = $this->title;
 
-echo '<pre>';
-print_r($users);
-echo '</pre>';
-
 ?>
 <div class="create-task">
   <h1><?= Html::encode($this->title) ?></h1>

@@ -17,15 +17,19 @@ class TaskController extends Controller
 
   public function actionCreate()
   {
-    $roleAdmin = Role::getIdAdminRole();
+    $model = new Tasks();
+
+    if ($model->load(\Yii::$app->request->post()) && $model->save())
+    {
+      $this->redirect(['task/index']);
+    }
 
     $curUserId = Yii::$app->user->identity->id;
+    $model->autor_id = $curUserId;
 
-    $tasks = new Tasks();
-    $tasks->autor_id = $curUserId;
-
+    $roleAdmin = Role::getIdAdminRole();
     $users = Users::find()->where('role_id != :role_id',[':role_id' => $roleAdmin->id])->all();
 
-    return $this->render('create', ['model' => $tasks, 'users' => $users]);
+    return $this->render('create', ['model' => $model, 'users' => $users]);
   }
 }
