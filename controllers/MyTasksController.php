@@ -23,7 +23,7 @@ class MyTasksController extends \yii\web\Controller
 
     $dataProvider = new ActiveDataProvider([
         'query' => $model,
-        'pagination' => array('pageSize' => 10),
+        'pagination' => ['pageSize' => 10],
     ]);
 
     return $this->render('index', [
