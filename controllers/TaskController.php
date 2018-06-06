@@ -15,6 +15,9 @@ class TaskController extends Controller
     return $this->render('index', ["title" => "Урок 1", "description" => "Контроллер Task"]);
   }
 
+  /**
+   * @return string
+   */
   public function actionCreate()
   {
     $model = new Tasks();
@@ -24,8 +27,7 @@ class TaskController extends Controller
       $this->redirect(['task/index']);
     }
 
-    $curUserId = Yii::$app->user->identity->id;
-    $model->autor_id = $curUserId;
+    $model->autor_id = Yii::$app->user->identity->id;
 
     $roleAdmin = Role::getIdAdminRole();
     $users = Users::find()->where('role_id != :role_id',[':role_id' => $roleAdmin->id])->all();
