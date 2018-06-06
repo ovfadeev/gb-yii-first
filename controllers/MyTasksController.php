@@ -17,8 +17,9 @@ class MyTasksController extends \yii\web\Controller
         'pagination' => array('pageSize' => 10),
     ]);
 
+    $formatDate = 'Y-m-d H:i:s';
     $beginCurMonth = mktime(0, 0, 0, date('m'), 1, date("Y"));
-    $endCurMonth = mktime(0, 0, 0, date('m'), date('t'), date("Y"));
+    $endCurMonth = mktime(23, 59, 59, date('m'), date('t'), date("Y"));
 
     $dataProvider->query
         ->andFilterWhere([
@@ -29,8 +30,8 @@ class MyTasksController extends \yii\web\Controller
         ->andFilterWhere([
             'between',
             'date_create',
-            date('Y-m-d H:i:s', $beginCurMonth),
-            date('Y-m-d H:i:s', $endCurMonth)
+            date($formatDate, $beginCurMonth),
+            date($formatDate, $endCurMonth)
         ]);
 
     return $this->render('index', [
