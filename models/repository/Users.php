@@ -30,7 +30,7 @@ class Users extends \yii\db\ActiveRecord
   public function rules()
   {
     return [
-        [['username', 'password', 'email', 'first_name', 'last_name'], 'required'],
+        [['username', 'password', 'email', 'first_name', 'last_name', 'role_id'], 'required'],
         [['username', 'email', 'first_name', 'last_name'], 'string', 'max' => 50],
         [['password'], 'string', 'max' => 100],
         [['username'], 'unique'],
@@ -71,5 +71,10 @@ class Users extends \yii\db\ActiveRecord
   public function getRole()
   {
     return $this->hasOne(Roles::className(), ['id' => 'role_id']);
+  }
+
+  public function getFullName()
+  {
+    return $this->first_name . ' ' . $this->last_name;
   }
 }

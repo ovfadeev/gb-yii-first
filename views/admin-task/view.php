@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\repository\Users */
+/* @var $model app\models\repository\Tasks */
 
-$this->title = $model->getFullName();
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="users-view">
+<div class="tasks-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,18 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'username',
-            // 'password',
-            'email:email',
-            'first_name',
-            'last_name',
-            'role_id' => [
-                'attribute' => 'role_id',
-                'value' => function ($model) {
-                  $role = $model->getRole()->where(['id' => $model->role_id])->one();
-                  return $role->title;
-                }
-            ],
+            'name',
+            'date_create',
+            'date_update',
+            'deadline',
+            'description:ntext',
+            'autor_id',
+            'performer_id',
+            'status_id',
         ],
     ]) ?>
 
