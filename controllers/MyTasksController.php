@@ -17,16 +17,21 @@ class MyTasksController extends \yii\web\Controller
         'pagination' => array('pageSize' => 10),
     ]);
 
-    $dataProvider->query->andFilterWhere([
-        'in',
-        'id',
-        Yii::$app->user->identity->id
-    ])/*->andFilterWhere([
-        'in',
-        'date_create',
-        date('Y-m-d H:i:s', strtotime("+7 days", time())),
-//        date('Y-m-d H:i:s', strtotime("-1 month +7 days", time()))
-    ])*/;
+    $beginCurMonth = mktime(0, 0, 0, date('m'), 1, date("Y"));
+    $endCurMonth = mktime(0, 0, 0, date('m'), date('t'), date("Y"));
+
+    $dataProvider->query
+        ->andFilterWhere([
+            'in',
+            'id',
+            Yii::$app->user->identity->id
+        ])
+        ->andFilterWhere([
+            'between',
+            'date_create',
+            date('Y-m-d H:i:s', $beginCurMonth),
+            date('Y-m-d H:i:s', $endCurMonth)
+        ]);
 
     return $this->render('index', [
         'model' => $model,
