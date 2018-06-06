@@ -34,9 +34,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'date_update',
             'deadline',
             'description:ntext',
-            'autor_id',
-            'performer_id',
-            'status_id',
+            'autor_id' => [
+                'attribute' => 'autor_id',
+                'value' => function ($model) {
+                  $user = $model->getAutor()->where(['id' => $model->autor_id])->one();
+                  return $user->getFullName();
+                }
+            ],
+            'performer_id' => [
+                'attribute' => 'performer_id',
+                'value' => function ($model) {
+                  $user = $model->getPerformer()->where(['id' => $model->performer_id])->one();
+                  return $user->getFullName();
+                }
+            ],
+            'status_id' => [
+                'attribute' => 'status_id',
+                'value' => function ($model) {
+                  $status = $model->getStatus()->where(['id' => $model->status_id])->one();
+                  return $status->title;
+                }
+            ],
         ],
     ]) ?>
 
