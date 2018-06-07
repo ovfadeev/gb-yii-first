@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\events\TaskCreateEvents;
 use app\models\repository\StatusTasks;
 use Yii;
 use app\models\repository\Tasks;
@@ -70,11 +71,10 @@ class AdminTasksController extends Controller
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
       $performerUser = $model->getPerformer()->where(['id' => $model->performer_id])->one();
-//      echo '<pre>';
-//      print_r($performerUser);
-//      echo '</pre>';
-//      exit();
-      return $this->redirect(['view', 'id' => $model->id]);
+
+      TaskCreateEvents::sendEmailNewTask($performerUser, $model);
+
+      $this->redirect(['view', 'id' => $model->id]);
     }
 
     $defStatus = StatusTasks::getDefaultStatus();

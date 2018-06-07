@@ -14,4 +14,5 @@ class Task extends \yii\base\BaseObject
   public $autor_id;
   public $performer_id;
   public $status_id;
+
 }
