@@ -10,17 +10,16 @@ class TaskCreateEvents extends Event
 
   public static function sendEmail($model)
   {
-    $performerUser = $model
-        ->sender
-        ->getPerformer()
-        ->where(['id' => $model->sender->performer_id])
-        ->one();
+    $emailTo = self::getEmailTo($model->sender);
+    $emailFrom = 'info@site.ru';
+    $subject = 'New task for you';
+    $message = static::mailMessage($model->sender);
 
     \Yii::$app->mailer->compose()
-        ->setTo($performerUser->email)
-        ->setFrom(['info@site.ru' => 'Site'])
-        ->setSubject('New task for you')
-        ->setTextBody(static::mailMessage($model->sender))
+        ->setTo($emailTo)
+        ->setFrom($emailFrom)
+        ->setSubject($subject)
+        ->setTextBody($message)
         ->send();
   }
 
@@ -33,5 +32,14 @@ class TaskCreateEvents extends Event
     $message .= 'Deadline: ' . $model->deadline . "\n\r";
 
     return $message;
+  }
+
+  protected function getEmailTo($model)
+  {
+    return $model
+        ->getPerformer()
+        ->where(['id' => $model->performer_id])
+        ->one()
+        ->email;
   }
 }
