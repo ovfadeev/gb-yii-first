@@ -95,20 +95,21 @@ class Tasks extends \yii\db\ActiveRecord
   public static function getTasksOnDays($idUser, $nDay, $nYear)
   {
     return static::find()
-      ->where([
-          'performer_id' => $idUser
-      ])
-      ->andWhere([
-          'MONTH(date_create)' => $nDay
-      ])
-      ->andWhere([
-          'YEAR(date_create)' => $nYear
-      ]);
+        ->where([
+            'performer_id' => $idUser
+        ])
+        ->andWhere([
+            'MONTH(date_create)' => $nDay
+        ])
+        ->andWhere([
+            'YEAR(date_create)' => $nYear
+        ]);
   }
 
   public function init()
   {
     parent::init();
+
     Event::on(
         Tasks::class,
         TaskCreateEvents::EVENT_CREATE_TASK,

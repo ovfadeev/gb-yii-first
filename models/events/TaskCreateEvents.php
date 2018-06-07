@@ -15,6 +15,7 @@ class TaskCreateEvents extends Event
         ->getPerformer()
         ->where(['id' => $model->sender->performer_id])
         ->one();
+
     mail(
         $performerUser->email,
         'New task for you',
