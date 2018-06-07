@@ -35,18 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
                   'id',
                   'name',
                   'deadline',
-                  'description:ntext',
+                  'description:html',
                   'autor_id' => [
                       'attribute' => 'autor_id',
                       'value' => function ($model) {
                         $user = $model->getAutor()->where(['id' => $model->autor_id])->one();
-                        return $user->getFullName();
-                      }
-                  ],
-                  'performer_id' => [
-                      'attribute' => 'performer_id',
-                      'value' => function ($model) {
-                        $user = $model->getPerformer()->where(['id' => $model->performer_id])->one();
                         return $user->getFullName();
                       }
                   ],

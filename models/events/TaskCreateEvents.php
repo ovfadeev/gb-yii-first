@@ -16,11 +16,12 @@ class TaskCreateEvents extends Event
         ->where(['id' => $model->sender->performer_id])
         ->one();
 
-    mail(
-        $performerUser->email,
-        'New task for you',
-        static::mailMessage($model->sender)
-    );
+    \Yii::$app->mailer->compose()
+        ->setTo($performerUser->email)
+        ->setFrom(['info@site.ru' => 'Site'])
+        ->setSubject('New task for you')
+        ->setTextBody(static::mailMessage($model->sender))
+        ->send();
   }
 
   protected function mailMessage($model)
