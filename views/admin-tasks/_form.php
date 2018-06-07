@@ -19,7 +19,16 @@ use yii\widgets\ActiveForm;
 
   <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-  <?= $form->field($model, 'deadline')->widget(\kartik\datetime\DateTimePicker::class, []) ?>
+  <?= $form->field($model, 'deadline')->widget(
+      \kartik\datetime\DateTimePicker::class,
+      [
+          'type' => \kartik\datetime\DateTimePicker::TYPE_COMPONENT_PREPEND,
+          'options' => [
+              'placeholder' => 'Select deadline time ...'
+          ]
+      ]
+  ) ?>
+  <?= Html::error($model, 'dealine'); ?>
 
   <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
