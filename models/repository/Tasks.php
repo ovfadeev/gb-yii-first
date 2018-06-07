@@ -76,7 +76,7 @@ class Tasks extends \yii\db\ActiveRecord
             ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
             ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update']
         ]
-    ]
+    ];
   }
 
   /**
