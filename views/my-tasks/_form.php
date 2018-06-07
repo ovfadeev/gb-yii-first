@@ -25,7 +25,10 @@ use yii\widgets\ActiveForm;
   <?= $form->field($model, 'deadline')->textInput(['disabled' => 'disabled']) ?>
   <?= Html::error($model, 'dealine'); ?>
 
-  <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+  <?= $form->field($model, 'description')->textarea([
+      'rows' => 6,
+      'disabled' => 'disabled'
+  ]) ?>
 
   <?= $form->field($model, 'performer_id')->dropDownList(ArrayHelper::map($users, 'id', 'first_name')) ?>
   <?
