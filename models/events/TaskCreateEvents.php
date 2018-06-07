@@ -11,8 +11,8 @@ class TaskCreateEvents extends Event
   public static function sendEmail($model)
   {
     $emailTo = self::getEmailTo($model->sender);
-    $emailFrom = 'info@site.ru';
-    $subject = 'New task for you';
+    $emailFrom = \Yii::$app->params['adminEmail'];
+    $subject = \Yii::$app->params['createTask'];
     $message = static::mailMessage($model->sender);
 
     \Yii::$app->mailer->compose()
@@ -21,6 +21,7 @@ class TaskCreateEvents extends Event
         ->setSubject($subject)
         ->setTextBody($message)
         ->send();
+    // config web mailer on local server - 'useFileTransport' => false
   }
 
   protected function mailMessage($model)
