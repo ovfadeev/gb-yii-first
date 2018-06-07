@@ -19,12 +19,7 @@ use yii\widgets\ActiveForm;
 
   <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-  <? //= $form->field($model, 'deadline')->textInput(['type' => 'datetime-local']) ?>
-
-  <?= $form->field($model, 'deadline')->widget(
-      \kartik\datetime\DateTimePicker::class,
-      []
-  ) ?>
+  <?= $form->field($model, 'deadline')->widget(\kartik\datetime\DateTimePicker::class, []) ?>
 
   <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
