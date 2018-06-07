@@ -8,6 +8,7 @@ use Yii;
 use app\models\repository\Tasks;
 use app\models\repository\TasksSearch;
 use app\models\repository\Users;
+use yii\base\Event;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -70,9 +71,10 @@ class AdminTasksController extends Controller
     $model = new Tasks();
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-      $performerUser = $model->getPerformer()->where(['id' => $model->performer_id])->one();
 
-      TaskCreateEvents::sendEmailNewTask($performerUser, $model);
+      $taskEvent = new TaskCreateEvents();
+
+      $model->trigger(TaskCreateEvents::EVENT_CREATE_TASK);
 
       $this->redirect(['view', 'id' => $model->id]);
     }

@@ -2,7 +2,9 @@
 
 namespace app\models\repository;
 
+use app\models\events\TaskCreateEvents;
 use Yii;
+use yii\base\Event;
 
 /**
  * This is the model class for table "tasks".
@@ -102,5 +104,11 @@ class Tasks extends \yii\db\ActiveRecord
       ->andWhere([
           'YEAR(date_create)' => $nYear
       ]);
+  }
+
+  public function init()
+  {
+    parent::init();
+    Event::on(Tasks::class, TaskCreateEvents::EVENT_CREATE_TASK, [TaskCreateEvents::class, 'sendEmail']);
   }
 }
