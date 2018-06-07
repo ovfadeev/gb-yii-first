@@ -68,6 +68,17 @@ class Tasks extends \yii\db\ActiveRecord
     ];
   }
 
+  public function behaviors()
+  {
+    return [
+        'class' => TimestampBehavior::class,
+        'attributes' => [
+            ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
+            ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update']
+        ]
+    ]
+  }
+
   /**
    * @return \yii\db\ActiveQuery
    */

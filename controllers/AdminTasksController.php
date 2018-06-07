@@ -32,13 +32,6 @@ class AdminTasksController extends Controller
                 'delete' => ['POST'],
             ],
         ],
-        [
-            'class' => TimestampBehavior::class,
-            'attributes' => [
-                ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
-                ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update']
-            ]
-        ]
     ];
   }
 
