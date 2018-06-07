@@ -9,6 +9,8 @@ use app\models\repository\Tasks;
 use app\models\repository\TasksSearch;
 use app\models\repository\Users;
 use yii\base\Event;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,6 +32,13 @@ class AdminTasksController extends Controller
                 'delete' => ['POST'],
             ],
         ],
+        [
+            'class' => TimestampBehavior::class,
+            'attributes' => [
+                ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
+                ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update']
+            ]
+        ]
     ];
   }
 
