@@ -92,17 +92,20 @@ class Tasks extends \yii\db\ActiveRecord
     return $this->hasOne(StatusTasks::className(), ['id' => 'status_id']);
   }
 
-  public static function getTasksOnDays($idUser, $nDay, $nYear)
+  public static function getTasksOnDays($idUser, $nDay, $nMonth, $nYear)
   {
     return static::find()
         ->where([
             'performer_id' => $idUser
         ])
         ->andWhere([
-            'MONTH(date_create)' => $nDay
+            'YEAR(date_create)' => $nYear
         ])
         ->andWhere([
-            'YEAR(date_create)' => $nYear
+            'MONTH(date_create)' => $nMonth
+        ])
+        ->andWhere([
+            'DAY(date_create)' => $nDay
         ]);
   }
 

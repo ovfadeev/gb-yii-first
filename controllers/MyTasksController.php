@@ -14,9 +14,10 @@ class MyTasksController extends \yii\web\Controller
     $idUser = Yii::$app->user->identity->id;
     $calendar = array_fill_keys(range(1, date("t")), []);
     $curYear = date("Y");
+    $curMonth = date("m");
 
-    foreach ($calendar as $days => $value) {
-      $calendar[$days] = Tasks::getTasksOnDays($idUser, $days, $curYear);
+    foreach ($calendar as $day => $value) {
+      $calendar[$day] = Tasks::getTasksOnDays($idUser, $day, $curMonth, $curYear);
     }
 
     return $this->render('index', [
