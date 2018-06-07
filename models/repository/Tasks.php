@@ -125,16 +125,4 @@ class Tasks extends \yii\db\ActiveRecord
         ]);
   }
 
-  public function init()
-  {
-    parent::init();
-
-    Event::on(
-        Tasks::class,
-        TaskCreateEvents::EVENT_CREATE_TASK,
-        [
-            TaskCreateEvents::class, 'sendEmail'
-        ]
-    );
-  }
 }

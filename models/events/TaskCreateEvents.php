@@ -6,8 +6,6 @@ use yii\base\Event;
 
 class TaskCreateEvents extends Event
 {
-  const EVENT_CREATE_TASK = 'create_task';
-
   public static function sendEmail($model)
   {
     $emailTo = self::getEmailTo($model->sender);
