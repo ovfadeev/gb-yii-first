@@ -72,8 +72,6 @@ class AdminTasksController extends Controller
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-      $taskEvent = new TaskCreateEvents();
-
       $model->trigger(TaskCreateEvents::EVENT_CREATE_TASK);
 
       $this->redirect(['view', 'id' => $model->id]);
