@@ -6,31 +6,21 @@ use Yii;
 use app\models\repository\Tasks;
 use app\models\repository\StatusTasks;
 use app\models\repository\Users;
-use yii\data\ActiveDataProvider;
 
 class MyTasksController extends \yii\web\Controller
 {
   public function actionIndex()
   {
-    $model = Tasks::find()
-        ->where([
-            'performer_id' => Yii::$app->user->identity->id
-        ])
-        ->andWhere([
-            'MONTH(date_create)' => date('n')
-        ])
-        ->andWhere([
-            'YEAR(date_create)' => date('Y')
-        ]);
+    $idUser = Yii::$app->user->identity->id;
+    $calendar = array_fill_keys(range(1, date("t")), []);
+    $curYear = date("Y");
 
-    $dataProvider = new ActiveDataProvider([
-        'query' => $model,
-        'pagination' => ['pageSize' => 10],
-    ]);
+    foreach ($calendar as $days => $value) {
+      $calendar[$days] = Tasks::getTasksOnDays($idUser, $days, $curYear);
+    }
 
     return $this->render('index', [
-        'model' => $model,
-        'dataProvider' => $dataProvider
+        'calendar' => $calendar
     ]);
   }
 

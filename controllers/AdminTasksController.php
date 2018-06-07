@@ -69,6 +69,11 @@ class AdminTasksController extends Controller
     $model = new Tasks();
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      $performerUser = $model->getPerformer()->where(['id' => $model->performer_id])->one();
+//      echo '<pre>';
+//      print_r($performerUser);
+//      echo '</pre>';
+//      exit();
       return $this->redirect(['view', 'id' => $model->id]);
     }
 
