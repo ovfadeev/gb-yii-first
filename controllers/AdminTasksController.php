@@ -8,9 +8,6 @@ use Yii;
 use app\models\repository\Tasks;
 use app\models\repository\TasksSearch;
 use app\models\repository\Users;
-use yii\base\Event;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,10 +68,11 @@ class AdminTasksController extends Controller
   public function actionCreate()
   {
     $model = new Tasks();
+    $model->on(Tasks::EVENT_AFTER_INSERT,
+        [TaskCreateEvents::class, 'sendEmail']
+    );
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-      $model->trigger(TaskCreateEvents::EVENT_CREATE_TASK);
 
       $this->redirect(['view', 'id' => $model->id]);
     }

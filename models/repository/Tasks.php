@@ -3,8 +3,10 @@
 namespace app\models\repository;
 
 use app\models\events\TaskCreateEvents;
-use Yii;
 use yii\base\Event;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "tasks".
@@ -71,11 +73,14 @@ class Tasks extends \yii\db\ActiveRecord
   public function behaviors()
   {
     return [
-        'class' => TimestampBehavior::class,
-        'attributes' => [
-            ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
-            ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update']
-        ]
+        [
+            'class' => TimestampBehavior::className(),
+            'attributes' => [
+                ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
+                ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update'],
+            ],
+            'value' => new Expression('NOW()'),
+        ],
     ];
   }
 
