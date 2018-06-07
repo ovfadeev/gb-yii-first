@@ -17,8 +17,13 @@ class MyTasksController extends \yii\web\Controller
     $curMonth = date("m");
 
     foreach ($calendar as $day => $value) {
-      $calendar[$day] = Tasks::getTasksOnDays($idUser, $day, $curMonth, $curYear);
+      $calendar[$day] = Tasks::getTasksDeadlineOnDays($idUser, $day, $curMonth, $curYear);
     }
+
+//    echo '<pre>';
+//    print_r($calendar);
+//    echo '</pre>';
+//    exit();
 
     return $this->render('index', [
         'calendar' => $calendar
