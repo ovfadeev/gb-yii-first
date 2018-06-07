@@ -20,11 +20,6 @@ class MyTasksController extends \yii\web\Controller
       $calendar[$day] = Tasks::getTasksDeadlineOnDays($idUser, $day, $curMonth, $curYear);
     }
 
-//    echo '<pre>';
-//    print_r($calendar);
-//    echo '</pre>';
-//    exit();
-
     return $this->render('index', [
         'calendar' => $calendar
     ]);
