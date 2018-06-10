@@ -2,5 +2,6 @@
 
 return [
     'adminEmail' => 'admin@example.com',
-    'createTask' => 'Create new task'
+    'createTask' => 'Create new task',
+    'cacheTime' => 300,
 ];

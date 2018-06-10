@@ -11,17 +11,8 @@ class MyTasksController extends \yii\web\Controller
 {
   public function actionIndex()
   {
-    $idUser = Yii::$app->user->identity->id;
-    $calendar = array_fill_keys(range(1, date("t")), []);
-    $curYear = date("Y");
-    $curMonth = date("m");
-
-    foreach ($calendar as $day => $value) {
-      $calendar[$day] = Tasks::getTasksDeadlineOnDays($idUser, $day, $curMonth, $curYear);
-    }
-
     return $this->render('index', [
-        'calendar' => $calendar
+        'calendar' => $this->getCalendar()
     ]);
   }
 
@@ -60,6 +51,38 @@ class MyTasksController extends \yii\web\Controller
     }
 
     throw new NotFoundHttpException('The requested page does not exist.');
+  }
+
+  protected function getCalendar()
+  {
+    $params = [
+        'user' => Yii::$app->user->identity->id,
+        'calendar' => array_fill_keys(range(1, date("t")), []),
+        'cur_year' => date("Y"),
+        'cur_month' => date("m")
+    ];
+
+    $cache = Yii::$app->rcache;
+    $keyCache = $this->getCacheKey('task', $params);
+
+    $calendar = $cache->getOrSet($keyCache, function() use ($params) {
+      foreach ($params['calendar'] as $day => $value) {
+        $data[$day] = Tasks::getTasksDeadlineOnDays(
+            $params['user'],
+            $day,
+            $params['cur_month'],
+            $params['cur_year']
+        );
+      }
+      return $data;
+    }, Yii::$app->params->cacheTime);
+
+    return $calendar;
+  }
+
+  protected function getCacheKey($prefix, $params)
+  {
+    return $prefix . '_' . $params['user'] . '_' . $params['cur_year'] . $params['cur_month'];
   }
 
 }
