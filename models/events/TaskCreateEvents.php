@@ -9,8 +9,8 @@ class TaskCreateEvents extends Event
   public static function sendEmail($model)
   {
     $emailTo = self::getEmailTo($model->sender);
-    $emailFrom = \Yii::$app->params['adminEmail'];
-    $subject = \Yii::$app->params['createTask'];
+    $emailFrom = \Yii::$app->params['admin_email'];
+    $subject = \Yii::$app->params['create_task'];
     $message = static::mailMessage($model->sender);
 
     \Yii::$app->mailer->compose()

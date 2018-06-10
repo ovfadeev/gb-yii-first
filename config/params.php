@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'createTask' => 'Create new task',
-    'cacheTime' => 300,
+    'admin_email' => 'admin@example.com',
+    'create_task' => 'Create new task',
+    'cache_time' => 300,
 ];

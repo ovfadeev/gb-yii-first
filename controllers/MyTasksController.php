@@ -62,8 +62,10 @@ class MyTasksController extends \yii\web\Controller
         'cur_month' => date("m")
     ];
 
-    $cache = Yii::$app->rcache;
+    $cache = Yii::$app->cache;
     $keyCache = $this->getCacheKey('task', $params);
+
+    $calendar = $cache->get($keyCache);
 
     $calendar = $cache->getOrSet($keyCache, function() use ($params) {
       foreach ($params['calendar'] as $day => $value) {
@@ -75,7 +77,7 @@ class MyTasksController extends \yii\web\Controller
         );
       }
       return $data;
-    }, Yii::$app->params->cacheTime);
+    }, Yii::$app->params['cache_time']);
 
     return $calendar;
   }
