@@ -12,7 +12,7 @@ class MyTasksController extends \yii\web\Controller
   public function actionIndex()
   {
     return $this->render('index', [
-        'calendar' => $this->getCalendar()
+        'data' => $this->getCalendar()
     ]);
   }
 
@@ -62,29 +62,16 @@ class MyTasksController extends \yii\web\Controller
         'cur_month' => date("m")
     ];
 
-    $cache = Yii::$app->cache;
-    $keyCache = $this->getCacheKey('task', $params);
+    foreach ($params['calendar'] as $day => $value) {
+      $params['calendar'][$day] = Tasks::getTasksDeadlineOnDays(
+          $params['user'],
+          $day,
+          $params['cur_month'],
+          $params['cur_year']
+      );
+    }
 
-    $calendar = $cache->get($keyCache);
-
-    $calendar = $cache->getOrSet($keyCache, function() use ($params) {
-      foreach ($params['calendar'] as $day => $value) {
-        $data[$day] = Tasks::getTasksDeadlineOnDays(
-            $params['user'],
-            $day,
-            $params['cur_month'],
-            $params['cur_year']
-        );
-      }
-      return $data;
-    }, Yii::$app->params['cache_time']);
-
-    return $calendar;
-  }
-
-  protected function getCacheKey($prefix, $params)
-  {
-    return $prefix . '_' . $params['user'] . '_' . $params['cur_year'] . $params['cur_month'];
+    return $params;
   }
 
 }
