@@ -7,12 +7,13 @@ use yii\db\Migration;
  */
 class m180611_183120_create_files_table extends Migration
 {
+  const TABLE_NAME_FILES = 'files';
   /**
    * {@inheritdoc}
    */
   public function safeUp()
   {
-    $this->createTable('files', [
+    $this->createTable($this::TABLE_NAME_FILES, [
         'id' => $this->primaryKey(),
         'title' => $this->string(50)->notNull(),
         'path' => $this->string(150)->notNull(),
