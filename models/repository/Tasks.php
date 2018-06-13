@@ -108,6 +108,14 @@ class Tasks extends \yii\db\ActiveRecord
     return $this->hasOne(StatusTasks::className(), ['id' => 'status_id']);
   }
 
+  /**
+   * @return \yii\db\ActiveQuery
+   */
+  public function getComment()
+  {
+    return $this->hasOne(Comments::className(), ['id' => 'task_id']);
+  }
+
   public static function getTasksDeadlineOnDays($idUser, $nDay, $nMonth, $nYear)
   {
     return static::find()
