@@ -14,7 +14,7 @@ $config = [
     'components' => [
         'i18n' => [
           'translation' => [
-              'lang*' => [
+              'app*' => [
                   'class' => \yii\i18n\PhpMessageSource::className(),
                   'basePath' => '@app/messages'
               ]
