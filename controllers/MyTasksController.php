@@ -24,8 +24,6 @@ class MyTasksController extends \yii\web\Controller
   {
     $model = $this->findModel($id);
 
-    $listComments = $model->getComments()->all();
-
     $modelComment = new Comments();
 
     $modelFile = new File();
@@ -50,6 +48,8 @@ class MyTasksController extends \yii\web\Controller
 
     $modelComment->autor_id = Yii::$app->user->identity->id;
     $modelComment->task_id = $model->id;
+
+    $listComments = $model->getComments()->all();
 
     return $this->render('view', [
         'model' => $model,

@@ -12,6 +12,9 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'i18n' => [
+
+        ],
         'request' => [
           // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '778ItEfCWqqsVUqXL26La0t-0j1q52si',
