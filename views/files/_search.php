@@ -17,13 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'path') ?>
 
-    <?= $form->field($model, 'date_create') ?>
+    <?= $form->field($model, 'resize_path') ?>
 
-    <?= $form->field($model, 'date_update') ?>
+    <?= $form->field($model, 'type') ?>
+
+    <?php // echo $form->field($model, 'date_create') ?>
+
+    <?php // echo $form->field($model, 'date_update') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

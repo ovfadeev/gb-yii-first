@@ -19,7 +19,7 @@ class FilesSearch extends Files
     {
         return [
             [['id'], 'integer'],
-            [['title', 'path', 'date_create', 'date_update'], 'safe'],
+            [['name', 'path', 'resize_path', 'type', 'date_create', 'date_update'], 'safe'],
         ];
     }
 
@@ -64,8 +64,10 @@ class FilesSearch extends Files
             'date_update' => $this->date_update,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'path', $this->path]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'path', $this->path])
+            ->andFilterWhere(['like', 'resize_path', $this->resize_path])
+            ->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
     }

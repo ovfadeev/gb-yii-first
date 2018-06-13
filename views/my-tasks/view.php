@@ -54,38 +54,38 @@ $this->params['breadcrumbs'][] = $this->title;
   <h3>Коментарии:</h3>
   <?php if ($listComments) { ?>
     <?php foreach ($listComments as $key => $comment) { ?>
-      <?
-        echo '<pre>';
-        print_r($comment);
-      echo '</pre>';
-      ?>
       <table class="table table-bordered">
         <tbody>
         <tr>
           <td>
-            <?= $comment['id'] ?>
+            <?= $comment->id ?>
           </td>
           <td>
-            Автор: <?= $comment['autor'] ?>
+            Автор: <?= $comment->getAutor()->where(['id' => $comment->autor_id])->one()->getFullName() ?>
           </td>
           <td>
-            <?= $comment['date_update'] ?>
+            <?= $comment->date_update ?>
           </td>
         </tr>
         <tr>
           <td colspan="3">
-            <?= $comment['text'] ?>
+            <?= $comment->text ?>
           </td>
         </tr>
-        <tr>
-          <td colspan="3">
-            <? if ($comment['file']['type'] == 'image/jpeg') { ?>
-              <img src="<?= $comment['file']['resize'] . $comment['file']['title'] ?>" alt=""/>
-            <? } else { ?>
-              <a href="<?= $comment['file']['path'] . $comment['file']['title'] ?>"><?= $comment['file']['title'] ?></a>
-            <? } ?>
-          </td>
-        </tr>
+        <? if ($comment->file_id > 0) { ?>
+          <tr>
+            <td colspan="3">
+              <?php
+              $file = $comment->getFile()->where(['id' => $comment['file_id']])->one();
+              if ($file->type == 'image/jpeg') { ?>
+                <img src="<?= $file->resize_path . $file->name ?>" alt=""/>
+                <a href="<?= $file->path . $file->name ?>" target="_blank"><?= $file->name ?></a>
+              <? } else { ?>
+                <a href="<?= $file->resize_path . $file->name ?>" target="_blank"><?= $file->name ?></a>
+              <? } ?>
+            </td>
+          </tr>
+        <? } ?>
         </tbody>
       </table>
     <? } ?>

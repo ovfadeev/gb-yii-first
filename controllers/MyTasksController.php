@@ -24,7 +24,7 @@ class MyTasksController extends \yii\web\Controller
   {
     $model = $this->findModel($id);
 
-    $listComments = $this->prepareComments($model->getComments()->all());
+    $listComments = $model->getComments()->all();
 
     $modelComment = new Comments();
 
@@ -33,10 +33,13 @@ class MyTasksController extends \yii\web\Controller
     if (Yii::$app->request->isPost) {
       $modelFile->file = UploadedFile::getInstance($modelFile, 'file');
       $modelFile->uploadFile();
+      if ($modelFile->isImage()) {
+        $modelFile->resizeImage(200, 200);
+      }
 
       $files = new Files();
 
-      if ($files->load(['Files' => $modelFile->toArray(['title', 'path', 'type'])]) && $files->save()) {
+      if ($files->load(['Files' => $modelFile->toArray(['name', 'path', 'resize_path', 'type'])]) && $files->save()) {
         $modelComment->file_id = $files->id;
       }
 
@@ -105,24 +108,6 @@ class MyTasksController extends \yii\web\Controller
     }
 
     return $params;
-  }
-
-  protected function prepareComments($comments)
-  {
-    foreach ($comments as $item) {
-      $newItem = $item->toArray();
-
-      $newItem['autor'] = Users::find()->where(['id' => $newItem['autor_id']])->one()->getFullName();
-
-      if ($item->file_id > 0) {
-        $file = Files::find()->where(['id' => $item->file_id])->one();
-        if ($file->type == "image/jpeg") {
-          $newItem['file'] = File::resizeImage($file, 100, 100, 90)->toArray();
-        }
-      }
-      $items[] = $newItem;
-    }
-    return $items;
   }
 
 }
