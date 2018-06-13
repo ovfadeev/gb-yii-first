@@ -25,6 +25,21 @@ class File extends Model
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function attributeLabels()
+  {
+    $langFile = 'app_files';
+    return [
+        'name' => Yii::t($langFile, 'attribute_name'),
+        'path' => Yii::t($langFile, 'attribute_path'),
+        'resize_path' => Yii::t($langFile, 'attribute_resize_path'),
+        'type' => Yii::t($langFile, 'attribute_type'),
+        'file' => Yii::t($langFile, 'attribute_file'),
+    ];
+  }
+
   protected static function createDir($path)
   {
     return (is_dir($path) || mkdir($path, 0644, true));
