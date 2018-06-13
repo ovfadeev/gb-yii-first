@@ -2,8 +2,6 @@
 
 namespace app\models\repository;
 
-use app\models\events\TaskCreateEvents;
-use yii\base\Event;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -111,9 +109,9 @@ class Tasks extends \yii\db\ActiveRecord
   /**
    * @return \yii\db\ActiveQuery
    */
-  public function getComment()
+  public function getComments()
   {
-    return $this->hasOne(Comments::className(), ['id' => 'task_id']);
+    return $this->hasOne(Comments::className(), ['task_id' => 'id']);
   }
 
   public static function getTasksDeadlineOnDays($idUser, $nDay, $nMonth, $nYear)
