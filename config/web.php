@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'language' => 'ru-RU',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -13,7 +14,7 @@ $config = [
     ],
     'components' => [
         'i18n' => [
-          'translation' => [
+          'translations' => [
               'app*' => [
                   'class' => \yii\i18n\PhpMessageSource::className(),
                   'basePath' => '@app/messages'

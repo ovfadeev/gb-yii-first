@@ -2,6 +2,7 @@
 
 namespace app\models\repository;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
@@ -55,16 +56,17 @@ class Tasks extends \yii\db\ActiveRecord
    */
   public function attributeLabels()
   {
+    $langFile = 'app_tasks';
     return [
-        'id' => 'ID',
-        'name' => 'Name',
-        'date_create' => 'Date Create',
-        'date_update' => 'Date Update',
-        'deadline' => 'Deadline',
-        'description' => 'Description',
-        'autor_id' => 'Autor ID',
-        'performer_id' => 'Performer ID',
-        'status_id' => 'Status ID',
+        'id' => Yii::t($langFile, 'attribute_id'),
+        'name' => Yii::t($langFile, 'attribute_name'),
+        'date_create' => Yii::t($langFile, 'attribute_date_create'),
+        'date_update' => Yii::t($langFile, 'attribute_date_update'),
+        'deadline' => Yii::t($langFile, 'attribute_deadline'),
+        'description' => Yii::t($langFile, 'attribute_descroption'),
+        'autor_id' => Yii::t($langFile, 'attribute_autor_id'),
+        'performer_id' => Yii::t($langFile, 'attribute_performer_id'),
+        'status_id' => Yii::t($langFile, 'attribute_status_id'),
     ];
   }
 

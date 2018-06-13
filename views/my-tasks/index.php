@@ -5,8 +5,10 @@ use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 use app\models\repository\Tasks;
 
-$this->title = 'My tasks';
-$this->params['breadcrumbs'][] = $this->title;
+$langFile = 'app_my_tasks';
+
+$this->title = Yii::t($langFile, 'page_title');
+$this->params['breadcrumbs'][] = Yii::t($langFile, 'page_title');
 
 $paramsCache = [
     'duration' => Yii::$app->params['cache_time'],
@@ -34,8 +36,12 @@ if ($this->beginCache('usertask', $paramsCache)) { ?>
     <table class="table table-bordered">
       <thead>
       <tr>
-        <th class="bg-success">Day</th>
-        <th>Tasks</th>
+        <th class="bg-success">
+          <?= Yii::t($langFile, 'table_header_day')?>
+        </th>
+        <th>
+          <?= Yii::t($langFile, 'table_header_tasks')?>
+        </th>
       </tr>
       </thead>
       <tbody>
