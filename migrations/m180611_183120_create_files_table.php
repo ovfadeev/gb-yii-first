@@ -8,6 +8,7 @@ use yii\db\Migration;
 class m180611_183120_create_files_table extends Migration
 {
   const TABLE_NAME_FILES = 'files';
+
   /**
    * {@inheritdoc}
    */
