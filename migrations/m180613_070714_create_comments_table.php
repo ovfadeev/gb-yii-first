@@ -20,7 +20,7 @@ class m180613_070714_create_comments_table extends Migration
         'id' => $this->primaryKey(),
         'text' => $this->text()->notNull(),
         'autor_id' => $this->integer(11)->notNull(),
-        'file_id' => $this->integer(11)->notNull(),
+        'file_id' => $this->integer(11),
         'date_create' => 'DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL',
         'date_update' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL',
     ]);
