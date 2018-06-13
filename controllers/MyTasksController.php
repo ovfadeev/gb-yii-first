@@ -24,7 +24,7 @@ class MyTasksController extends \yii\web\Controller
   {
     $model = $this->findModel($id);
 
-    $listComments = $model->getComments()->all();
+    $listComments = $this->prepareComments($model->getComments()->all());
 
     $modelComment = new Comments();
 
@@ -105,6 +105,21 @@ class MyTasksController extends \yii\web\Controller
     }
 
     return $params;
+  }
+
+  protected function prepareComments($comments)
+  {
+    foreach ($comments as $item){
+      $newItem = $item->toArray();
+      if ($item->file_id > 0){
+        $file = Files::find()->where(['id' => $item->file_id])->one()->toArray();
+        $newItem['file'] = File::resizeImage($file, 100, 100);
+      }
+      echo '<pre>';
+      print_r($newItem);
+      echo '</pre>';
+    }
+    exit();
   }
 
 }

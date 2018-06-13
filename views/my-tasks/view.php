@@ -51,9 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
           ],
       ],
   ]) ?>
-  <p>
-    Коментарии:
-  </p>
+  <h3>Коментарии:</h3>
   <?php foreach ($listComments as $key => $comment) { ?>
     <table class="table table-bordered">
       <tbody>

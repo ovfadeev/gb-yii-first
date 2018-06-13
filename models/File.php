@@ -52,4 +52,9 @@ class File extends Model
     $model = Files::find()->where(["id" => $id])->one();
     return $model->path . $model->title;
   }
+
+  public static function resizeImage($file, $width, $height)
+  {
+
+  }
 }
