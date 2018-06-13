@@ -18,11 +18,11 @@ class m180613_070714_create_comments_table extends Migration
   {
     $this->createTable($this::TABLE_NAME_COMMENTS, [
         'id' => $this->primaryKey(),
+        'text' => $this->text()->notNull(),
+        'user_id' => $this->integer(11)->notNull(),
+        'file_id' => $this->integer(11)->notNull(),
         'date_create' => 'DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL',
         'date_update' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL',
-        'user_id' => $this->integer(11)->notNull(),
-        'text' => $this->text()->notNull(),
-        'file_id' => $this->integer(11)->notNull()
     ]);
 
     $this->addForeignKey(
