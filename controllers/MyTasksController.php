@@ -109,17 +109,20 @@ class MyTasksController extends \yii\web\Controller
 
   protected function prepareComments($comments)
   {
-    foreach ($comments as $item){
+    foreach ($comments as $item) {
       $newItem = $item->toArray();
-      if ($item->file_id > 0){
-        $file = Files::find()->where(['id' => $item->file_id])->one()->toArray();
-        $newItem['file'] = File::resizeImage($file, 100, 100);
+
+      $newItem['autor'] = Users::find()->where(['id' => $newItem['autor_id']])->one()->getFullName();
+
+      if ($item->file_id > 0) {
+        $file = Files::find()->where(['id' => $item->file_id])->one();
+        if ($file->type == "image/jpeg") {
+          $newItem['file'] = File::resizeImage($file, 100, 100, 90)->toArray();
+        }
       }
-      echo '<pre>';
-      print_r($newItem);
-      echo '</pre>';
+      $items[] = $newItem;
     }
-    exit();
+    return $items;
   }
 
 }

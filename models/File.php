@@ -2,8 +2,12 @@
 
 namespace app\models;
 
+use Yii;
 use app\models\repository\Files;
+use Imagine\Gd\Imagine;
+use Imagine\Image\Box;
 use yii\base\Model;
+use yii\imagine\Image;
 
 class File extends Model
 {
@@ -22,6 +26,11 @@ class File extends Model
     ];
   }
 
+  protected static function createDir($path)
+  {
+    return (is_dir($path) || mkdir($path, 0644,true));
+  }
+
   public function uploadFile()
   {
     $this->title = $this->file->getBaseName() . "." . $this->file->getExtension();
@@ -30,19 +39,17 @@ class File extends Model
 
     switch ($this->type) {
       case 'image/jpeg':
-        $subdir = '/images/';
+        $this->path = \Yii::$app->params['dir_upload']['images']['original'];
         break;
 
       default:
-        $subdir = '/';
+        $this->path = \Yii::$app->params['dir_upload']['all'];
         break;
     }
 
-    $this->path = \Yii::$app->params['dir_upload'] . $subdir;
-
     $savePath = \Yii::getAlias('@webroot' . $this->path);
 
-    if (is_dir($savePath) || mkdir($savePath)) {
+    if (self::createDir($savePath)) {
       $this->file->saveAs($savePath . $this->title);
     }
   }
@@ -53,8 +60,19 @@ class File extends Model
     return $model->path . $model->title;
   }
 
-  public static function resizeImage($file, $width, $height)
+  public static function resizeImage($file, $width, $height, $quality)
   {
+    $originalPath = Yii::getAlias('@webroot' . $file->path);
 
+    $resizePath = Yii::getAlias('@webroot' . Yii::$app->params['dir_upload']['images']['resize']);
+
+    if (self::createDir($resizePath)){
+      Image::thumbnail($originalPath . $file->title, $width, $height)
+          ->save($resizePath . $file->title, ['quality' => $quality]);
+
+      $file->resize = Yii::$app->params['dir_upload']['images']['resize'];
+    }
+
+    return $file;
   }
 }

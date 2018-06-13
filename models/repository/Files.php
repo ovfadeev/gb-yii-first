@@ -18,6 +18,7 @@ use Yii;
  */
 class Files extends \yii\db\ActiveRecord
 {
+  public $resize;
   /**
    * {@inheritdoc}
    */

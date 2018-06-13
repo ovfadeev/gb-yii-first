@@ -52,32 +52,43 @@ $this->params['breadcrumbs'][] = $this->title;
       ],
   ]) ?>
   <h3>Коментарии:</h3>
-  <?php foreach ($listComments as $key => $comment) { ?>
-    <table class="table table-bordered">
-      <tbody>
-      <tr>
-        <td>
-          <?= $comment->id ?>
-        </td>
-        <td>
-          Автор: <?= $comment->autor_id ?>
-        </td>
-        <td>
-          <?= $comment->date_update ?>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <?= $comment->text ?>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <?= $comment->file_id ?>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <?php if ($listComments) { ?>
+    <?php foreach ($listComments as $key => $comment) { ?>
+      <?
+        echo '<pre>';
+        print_r($comment);
+      echo '</pre>';
+      ?>
+      <table class="table table-bordered">
+        <tbody>
+        <tr>
+          <td>
+            <?= $comment['id'] ?>
+          </td>
+          <td>
+            Автор: <?= $comment['autor'] ?>
+          </td>
+          <td>
+            <?= $comment['date_update'] ?>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <?= $comment['text'] ?>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <? if ($comment['file']['type'] == 'image/jpeg') { ?>
+              <img src="<?= $comment['file']['resize'] . $comment['file']['title'] ?>" alt=""/>
+            <? } else { ?>
+              <a href="<?= $comment['file']['path'] . $comment['file']['title'] ?>"><?= $comment['file']['title'] ?></a>
+            <? } ?>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    <? } ?>
   <? } ?>
   <p>
     Написать:
