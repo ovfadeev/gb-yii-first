@@ -13,7 +13,12 @@ $config = [
     ],
     'components' => [
         'i18n' => [
-
+          'translation' => [
+              'lang*' => [
+                  'class' => \yii\i18n\PhpMessageSource::className(),
+                  'basePath' => '@app/messages'
+              ]
+          ]
         ],
         'request' => [
           // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
