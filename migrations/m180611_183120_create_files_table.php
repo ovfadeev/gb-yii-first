@@ -14,6 +14,7 @@ class m180611_183120_create_files_table extends Migration
   {
     $this->createTable('files', [
         'id' => $this->primaryKey(),
+        'title' => $this->string(50)->notNull(),
         'path' => $this->string(150)->notNull(),
         'date_create' => 'DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL',
         'date_update' => 'DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL',
