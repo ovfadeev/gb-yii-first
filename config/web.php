@@ -14,12 +14,12 @@ $config = [
     ],
     'components' => [
         'i18n' => [
-          'translations' => [
-              'app*' => [
-                  'class' => \yii\i18n\PhpMessageSource::className(),
-                  'basePath' => '@app/messages'
-              ]
-          ]
+            'translations' => [
+                'app*' => [
+                    'class' => \yii\i18n\PhpMessageSource::className(),
+                    'basePath' => '@app/messages'
+                ]
+            ]
         ],
         'request' => [
           // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -58,14 +58,16 @@ $config = [
             ],
         ],
         'db' => $db,
-      /*
-      'urlManager' => [
-          'enablePrettyUrl' => true,
-          'showScriptName' => false,
-          'rules' => [
-          ],
-      ],
-      */
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                '/' => 'site/index',
+                'my-tasks' => 'my-tasks/index',
+                'my-tasks/<id:\d+>' => 'my-tasks/view',
+            ],
+        ],
     ],
     'params' => $params,
 ];
