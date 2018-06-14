@@ -93,7 +93,9 @@ $this->params['breadcrumbs'][] = $this->title;
   <p>
     Написать:
   </p>
-  <?php $form = ActiveForm::begin(); ?>
+  <?php $form = ActiveForm::begin([
+      'action' => \yii\helpers\Url::to(['my-tasks/add-comment'])
+  ]); ?>
 
   <?= $form->field($modelComment, 'task_id', [
       'template' => '{input}'

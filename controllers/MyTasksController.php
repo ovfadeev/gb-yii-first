@@ -25,31 +25,12 @@ class MyTasksController extends \yii\web\Controller
     $model = $this->findModel($id);
 
     $modelComment = new Comments();
-
-    $modelFile = new File();
-
-    if (Yii::$app->request->isPost) {
-      $modelFile->file = UploadedFile::getInstance($modelFile, 'file');
-      $modelFile->uploadFile();
-      if ($modelFile->isImage()) {
-        $modelFile->resizeImage(200, 200);
-      }
-
-      $files = new Files();
-
-      if ($files->load(['Files' => $modelFile->toArray(['name', 'path', 'resize_path', 'type'])]) && $files->save()) {
-        $modelComment->file_id = $files->id;
-      }
-
-      if ($modelComment->load(Yii::$app->request->post()) && $modelComment->save()) {
-
-      }
-    }
-
     $modelComment->autor_id = Yii::$app->user->identity->id;
     $modelComment->task_id = $model->id;
 
     $listComments = $model->getComments()->all();
+
+    $modelFile = new File();
 
     return $this->render('view', [
         'model' => $model,
@@ -78,6 +59,30 @@ class MyTasksController extends \yii\web\Controller
         'users' => $users,
         'status' => $status
     ]);
+  }
+
+  public function actionAddComment()
+  {
+    if (Yii::$app->request->isPost) {
+      $modelFile = new File();
+      $modelFile->file = UploadedFile::getInstance($modelFile, 'file');
+      $modelFile->uploadFile();
+      if ($modelFile->isImage()) {
+        $modelFile->resizeImage(200, 200);
+      }
+
+      $files = new Files();
+
+      $modelComment = new Comments();
+
+      if ($files->load(['Files' => $modelFile->toArray(['name', 'path', 'resize_path', 'type'])]) && $files->save()) {
+        $modelComment->file_id = $files->id;
+      }
+
+      if ($modelComment->load(Yii::$app->request->post()) && $modelComment->save()) {
+        return $this->redirect(['view', 'id' => $modelComment->task_id]);
+      }
+    }
   }
 
   protected function findModel($id)
