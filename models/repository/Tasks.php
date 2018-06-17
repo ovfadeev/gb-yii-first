@@ -118,7 +118,7 @@ class Tasks extends \yii\db\ActiveRecord
 
   public static function getTasksDeadlineOnDays($idUser, $nDay, $nMonth, $nYear)
   {
-    return static::find()
+    return self::find()
         ->where([
             'performer_id' => $idUser
         ])
@@ -131,6 +131,22 @@ class Tasks extends \yii\db\ActiveRecord
         ->andWhere([
             'DAY(deadline)' => $nDay
         ]);
+  }
+
+  public static function getTasksDeadlineExpiring()
+  {
+    return self::find()
+        ->where([
+            '<=',
+            'deadline',
+            date('Y-m-d H:i:s')
+        ])
+        ->andWhere([
+            '<>',
+            'status_id',
+            StatusTasks::find()->where(['title' => 'Close'])->one()->id
+        ])
+        ->all();
   }
 
 }

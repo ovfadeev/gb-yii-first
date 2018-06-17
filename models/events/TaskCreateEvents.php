@@ -2,6 +2,7 @@
 
 namespace app\models\events;
 
+use Yii;
 use yii\base\Event;
 
 class TaskCreateEvents extends Event
@@ -9,20 +10,19 @@ class TaskCreateEvents extends Event
   public static function sendEmail($model)
   {
     $emailTo = self::getEmailTo($model->sender);
-    $emailFrom = \Yii::$app->params['admin_email'];
-    $subject = \Yii::$app->params['create_task'];
-    $message = static::mailMessage($model->sender);
+    $emailFrom = Yii::$app->params['admin_email'];
+    $subject = Yii::$app->params['create_task'];
+    $message = self::prepareMessage($model->sender);
 
-    \Yii::$app->mailer->compose()
+    Yii::$app->mailer->compose()
         ->setTo($emailTo)
         ->setFrom($emailFrom)
         ->setSubject($subject)
         ->setTextBody($message)
         ->send();
-    // config web mailer on local server - 'useFileTransport' => false
   }
 
-  protected function mailMessage($model)
+  protected function prepareMessage($model)
   {
     $message = 'Hello friend :)' . "\n\r";
     $message .= 'New task for you!' . "\n\r";
