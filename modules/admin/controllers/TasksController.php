@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use app\models\events\TaskCreateEvents;
 use app\models\repository\StatusTasks;
@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 /**
  * AdminTasksController implements the CRUD actions for Tasks model.
  */
-class AdminTasksController extends Controller
+class TasksController extends Controller
 {
   /**
    * {@inheritdoc}

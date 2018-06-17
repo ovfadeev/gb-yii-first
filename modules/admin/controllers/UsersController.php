@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use app\models\repository\Roles;
 use Yii;
@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * AdminUsersController implements the CRUD actions for Users model.
  */
-class AdminUsersController extends Controller
+class UsersController extends Controller
 {
   /**
    * {@inheritdoc}

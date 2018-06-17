@@ -65,8 +65,14 @@ $config = [
             'rules' => [
                 '/' => 'site/index',
                 'my-tasks' => 'my-tasks/index',
-                'my-tasks/<id:\d+>' => 'my-tasks/view',
+                '/<controllers>/<id:\d+>/<action>' => '/<controllers>/<action>',
+                '<modules>/<controllers>/<id:\d+>/<action>' => '<modules>/<controllers>/<action>',
             ],
+        ],
+    ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
         ],
     ],
     'params' => $params,
