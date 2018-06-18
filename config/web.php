@@ -63,10 +63,10 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                '/' => 'site/index',
-                'my-tasks' => 'my-tasks/index',
-                '/<controllers>/<id:\d+>/<action>' => '/<controllers>/<action>',
                 '<modules>/<controllers>/<id:\d+>/<action>' => '<modules>/<controllers>/<action>',
+                '<controllers>/<id:\d+>/<action>' => '<controllers>/<action>',
+                '<controllers>' => '<controllers>/index',
+                '/' => 'site/index',
             ],
         ],
     ],
