@@ -42,7 +42,7 @@ AppAsset::register($this);
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             (!Yii::$app->user->isGuest)? ['label' => 'My tasks', 'url' => ['/my-tasks/index']] : '',
-            (!Yii::$app->user->isGuest)? ['label' => 'Admin', 'url' => ['/admin/default/index']] : '',
+            (Yii::$app->user->can('createTask'))? ['label' => 'Admin', 'url' => ['/admin/default/index']] : '',
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
