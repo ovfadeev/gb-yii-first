@@ -77,11 +77,10 @@ if ($this->beginCache('usertask', $paramsCache)) { ?>
                       return $status->title;
                     }
                 ],
-
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'visibleButtons' => [
-                        'delete' => false
+                        'delete' => Yii::$app->user->can('deleteTask')
                     ]
                 ],
             ],

@@ -8,6 +8,7 @@ use Yii;
 use app\models\repository\Tasks;
 use app\models\repository\TasksSearch;
 use app\models\repository\Users;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +24,18 @@ class TasksController extends Controller
   public function behaviors()
   {
     return [
+        'access' => [
+            'class' => AccessControl::className(),
+            'rules' => [
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback' => function($rule, $action){
+                        return Yii::$app->user->can('createTask');
+                    }
+                ],
+            ],
+        ],
         'verbs' => [
             'class' => VerbFilter::className(),
             'actions' => [
@@ -69,7 +82,7 @@ class TasksController extends Controller
   {
     $model = new Tasks();
     $model->on(Tasks::EVENT_AFTER_INSERT,
-        [TaskCreateEvents::class, 'sendEmail']
+        [TaskCreateEvents::className(), 'sendEmail']
     );
 
     if ($model->load(Yii::$app->request->post()) && $model->save()) {

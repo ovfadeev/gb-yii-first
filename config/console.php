@@ -13,6 +13,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::className()
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

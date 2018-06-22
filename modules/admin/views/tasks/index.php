@@ -52,8 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 return $status->title;
               }
           ],
-
-          ['class' => 'yii\grid\ActionColumn'],
+          [
+              'class' => 'yii\grid\ActionColumn',
+              'visibleButtons' => [
+                  'delete' => Yii::$app->user->can('deleteTask')
+              ]
+          ],
       ],
   ]); ?>
 </div>

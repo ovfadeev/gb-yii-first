@@ -13,6 +13,9 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::className()
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -64,6 +67,7 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 '<modules>/<controllers>/<id:\d+>/<action>' => '<modules>/<controllers>/<action>',
+                //'<modules>' => '<modules>/default/index',
                 '<controllers>/<id:\d+>/<action>' => '<controllers>/<action>',
                 '<controllers>' => '<controllers>/index',
                 '/' => 'site/index',
